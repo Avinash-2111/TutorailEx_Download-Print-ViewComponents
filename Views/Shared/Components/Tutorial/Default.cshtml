@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Tutorial>
+<li class="nav-item dropdown" style="background-color:darkgreen">
+    <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+        Tutorials
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+        @foreach(var tutorial in Model)
+        {
+            <li><a class="dropdown-item" asp-controller="Article" asp-action="DisplayArticles" asp-route-id="@tutorial.Id">@tutorial.TutorialName</a></li>
+        }
+    </ul>
+</li>

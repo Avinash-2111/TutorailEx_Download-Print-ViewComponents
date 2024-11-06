@@ -1,0 +1,108 @@
+﻿@model IEnumerable<TutorialEx.Models.Tutorial>
+@{
+    ViewBag.msg = "List Of Tutorials";
+}
+ <div id="contentToDownload">
+<form method="get" asp-controller="Tutorial" asp-action="Index" >
+    <button class="btn btn-success" asp-controller="Tutorial" asp-action="AddTutorial"><strong><h5>Add New Tutorial</h5></strong></button>
+    
+    <table class="table caption-top" id="tutorial_table">
+        <caption><strong>List of Tutorials</strong></caption>
+        <tr>
+            <thead class="table-dark">         
+            <td>ID</td>
+            <td>TutorialName</td>
+            <td>Description</td>
+            <td>Action</td>
+            <td>Action</td>
+        </thead>
+
+        </tr>
+       
+            @foreach(var tutorial in Model)
+            {
+            <tbody class="">
+                <tr>
+                    <td>@tutorial.Id</td>
+                    <td>@tutorial.TutorialName</td>
+                    <td>@tutorial.TutorialDescription</td>
+                    <td><button type="button" class="btn btn-primary"  id="edit1" @* "Tutorial" asp-action="EditTutorial" asp-route-id="@tutorial.Id" *@ data-id="@tutorial.Id" >Edit</button></td>
+                    <td><button type="submit" class="btn btn-danger" asp-controller="Tutorial" asp-action="DeleteTutorial" asp-route-id="@tutorial.Id">Delete</button></td>
+                </tr>
+
+            </tbody>
+            }
+ 
+    </table>
+    <div class="mt-3">
+            <button id="printButton" class="btn btn-warning">Print Tutorials</button>
+    </div>
+        <div class="mt-3">
+            <button id="123" class="btn btn-secondary" asp-controller="ShoppingCart" asp-action="DownloadPdf">NavigateToDownload</button>
+        </div>
+</form>
+</div>
+ <script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        window.print();
+    });
+    </script> 
+<script src="
+https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    document.getElementById('downloadBtn').addEventListener('click', function () {
+        const element = document.getElementById('contentToDownload');
+        html2pdf()
+            .from(element)
+            .save('downloaded-page.pdf');
+    });
+    $('edit1').click(function () 
+    {
+        const TutorialId = $(this).data('id');
+
+        $.ajax({
+            url: 'EditTutorial/Tutorial',
+            type: 'POST',
+            data: JSON.stringify({ id: TutorialId }),
+            contentType:'application/json',
+            success: function (response) {
+                console.log('Response is:'response);
+            },
+                response: function (xhr, status, error) {
+                    console.log('Error is:'error);
+            },
+
+        });
+    });
+</script>
+
+@* <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Page Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div id="contentToDownload">
+      <button id="downloadBtn" class="btn btn-warning">Download Page</button>
+
+    
+
+    <div class="form-group" style="bakground-color:pink">
+        <h1>Your Content Here</h1>
+        <p>This is the content that will be downloaded as a PDF.</p>
+    </div>
+    </div>
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            const element = document.getElementById('contentToDownload');
+            html2pdf()
+                .from(element)
+                .save('downloaded-page.pdf');
+        });
+    </script>
+
+</body>
+</html> *@

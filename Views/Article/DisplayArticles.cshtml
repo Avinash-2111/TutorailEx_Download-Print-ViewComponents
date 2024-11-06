@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Article>
+@{
+    ViewData["Title"] = "Articles";
+}
+<table class="table table-success caption-top">
+    <captionArticles</caption>
+  <thead>
+      <tr>
+          <td>Name</td>
+          <td>Content</td>
+      </tr>
+
+  </thead>
+        @foreach(var article in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@article.ArticleTitle</td>
+                    <td>@article.ArticleContent</td>
+                </tr>
+            </tbody>
+        }
+
+</table>

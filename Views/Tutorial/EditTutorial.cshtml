@@ -1,0 +1,12 @@
+﻿@model Tutorial
+<form method="post" asp-controller="Tutorial" asp-action="EditTutorial" id="form_select">
+  @await Html.PartialAsync("_TutorialFormFeilds", Model)
+    <div class="row mt-2">
+        <div class="col-md">
+        <button id="button_1" class="btn btn-primary align-content-center" type="submit">Update</button>
+        </div>
+        <div class="col-md">
+            <button id="button_1" class="btn btn-danger align-content-center" type="submit" asp-controller="Tutorial" asp-action="Index">Cancel</button>
+        </div>
+    </div>
+</form>
